@@ -131,7 +131,6 @@ if __name__ == '__main__':
 
             tiempo_final = time.time()
             tiempo_ejecucion = (tiempo_final - tiempo_inicial)
-            minutos, segundos = divmod(tiempo_ejecucion, 60)
 
             # Imprimir la solución
             print('\nSolución en amplitud: \n')
@@ -139,7 +138,7 @@ if __name__ == '__main__':
                 for fila in estado:
                     print(fila)
                 print()
-            print(f'Tiempo de ejecución: [{minutos:01d}:{segundos:02d}]')
+            print(f'Tiempo de ejecución: {tiempo_ejecucion} segundos')
             os.system('pause')
 
         elif opcion == 2:
@@ -158,7 +157,7 @@ if __name__ == '__main__':
                 for fila in estado:
                     print(fila)
                 print()
-            print(f'Tiempo de ejecución: [{minutos:01d}:{segundos:02d}]')
+            print(f'Tiempo de ejecución: {minutos:01d}:{segundos:02d}')
             os.system('pause')
 
         elif opcion == 3:
