@@ -82,7 +82,7 @@ def busqueda_amplitud(estado_inicial):
                 cola.append((sucesor, camino + [sucesor]))
     return None
 
-
+# Función para buscar la solución por profundidad
 def busqueda_profundidad(estado_inicial):
     # Inicializar la pila de estados a visitar
     pila = [(estado_inicial, [])]
@@ -101,6 +101,30 @@ def busqueda_profundidad(estado_inicial):
                 visitados.add(tuple(map(tuple, sucesor)))
     return None
 
+# Función para buscar la solución por profundidad limitada
+def busqueda_profundidad_limitada(estado, limite):
+    frontera = [(estado, [])]
+    explorado = set()
+    while frontera:
+        estado_actual, camino = frontera.pop()
+        explorado.add(str(estado_actual))
+        if es_objetivo(estado_actual):
+            return camino + [estado_actual]
+        if len(camino) < limite:
+            for sucesor in sucesores(estado_actual):
+                if str(sucesor) not in explorado:
+                    frontera.append((sucesor, camino + [sucesor]))
+    return 'corte'
+
+# Función para buscar la solución por profundidad iterativa
+def busqueda_profundidad_iterativa(estado):
+    limite = 0
+    while True:
+        solucion = busqueda_profundidad_limitada(estado, limite)
+        if solucion != 'corte':
+            return solucion
+        limite += 1
+
 
 if __name__ == '__main__':
     while True:
@@ -116,7 +140,8 @@ if __name__ == '__main__':
         print("\nElije una opción para resolver el puzzle:")
         print("1. Amplitud")
         print("2. Profundidad")
-        print("3. Generar otro estado")
+        print("3. Profundidad iterativa")
+        print("4. Generar otro estado")
         print("0. Salir")
         try:
             opcion = int(input("> "))
@@ -161,8 +186,26 @@ if __name__ == '__main__':
             os.system('pause')
 
         elif opcion == 3:
-            pass
+            tiempo_inicial = time.time()
 
+            # Buscar la solución por profundidad iterativa
+            solucion = busqueda_profundidad_iterativa(estado_inicial)
+
+            tiempo_final = time.time()
+            tiempo_ejecucion = (tiempo_final - tiempo_inicial)
+
+            # Imprimir la solución
+            print('\nSolución en profundidad iterativa: \n')
+            for estado in solucion:
+                for fila in estado:
+                    print(fila)
+                print()
+            print(f'Tiempo de ejecución: {tiempo_ejecucion} segundos')
+            os.system('pause')
+
+        elif opcion == 4:
+            continue
+        
         elif opcion == 0:
             break
 
