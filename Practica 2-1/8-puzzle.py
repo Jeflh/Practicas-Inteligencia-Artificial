@@ -50,7 +50,7 @@ def estado_aleatorio():
                 if estado[j][k] == 0:
                     espacio = (j, k)
                     break
-        if movimiento == 'arriba':
+        if movimiento == 'arriba': 
             if espacio[0] > 0:
                 estado[espacio[0]][espacio[1]] = estado[espacio[0]-1][espacio[1]]
                 estado[espacio[0]-1][espacio[1]] = 0
@@ -72,15 +72,15 @@ def estado_aleatorio():
 def busqueda_amplitud(estado_inicial):
     cola = deque([(estado_inicial, [])])
     explorado = set()
-    while cola:
-        estado_actual, camino = cola.popleft()
+    while cola: 
+        estado_actual, camino = cola.popleft() # Extraer el primer estado de la cola
         explorado.add(str(estado_actual))
-        for sucesor in sucesores(estado_actual):
-            if str(sucesor) not in explorado:
-                if es_objetivo(sucesor):
-                    return camino + [sucesor]
-                cola.append((sucesor, camino + [sucesor]))
-    return None
+        for sucesor in sucesores(estado_actual): 
+            if str(sucesor) not in explorado: # Si el sucesor no ha sido explorado
+                if es_objetivo(sucesor): # Si es el estado objetivo, devolver el camino
+                    return camino + [sucesor]  
+                cola.append((sucesor, camino + [sucesor])) # Añadir el sucesor a la cola
+    return None # No se ha encontrado solución
 
 # Función para buscar la solución por profundidad
 def busqueda_profundidad(estado_inicial):
@@ -104,26 +104,26 @@ def busqueda_profundidad(estado_inicial):
 # Función para buscar la solución por profundidad limitada
 def busqueda_profundidad_limitada(estado, limite):
     frontera = [(estado, [])]
-    explorado = set()
+    explorado = set() 
     while frontera:
-        estado_actual, camino = frontera.pop()
-        explorado.add(str(estado_actual))
-        if es_objetivo(estado_actual):
-            return camino + [estado_actual]
-        if len(camino) < limite:
-            for sucesor in sucesores(estado_actual):
-                if str(sucesor) not in explorado:
-                    frontera.append((sucesor, camino + [sucesor]))
-    return 'corte'
+        estado_actual, camino = frontera.pop() # Extraer el último estado de la frontera
+        explorado.add(str(estado_actual)) 
+        if es_objetivo(estado_actual): # Si es el estado objetivo, devolver el camino
+            return camino + [estado_actual] 
+        if len(camino) < limite: 
+            for sucesor in sucesores(estado_actual): # Generar los sucesores del estado actual
+                if str(sucesor) not in explorado: # Si el sucesor no ha sido explorado
+                    frontera.append((sucesor, camino + [sucesor])) # Agregarlo a la frontera
+    return 'corte' # Devolver corte si no se encontró la solución
 
 # Función para buscar la solución por profundidad iterativa
 def busqueda_profundidad_iterativa(estado):
-    limite = 0
+    limite = 0 
     while True:
-        solucion = busqueda_profundidad_limitada(estado, limite)
-        if solucion != 'corte':
+        solucion = busqueda_profundidad_limitada(estado, limite) # Buscar la solución
+        if solucion != 'corte': # Si no se cortó la búsqueda
             return solucion
-        limite += 1
+        limite += 1 # Incrementar el límite
 
 
 if __name__ == '__main__':
