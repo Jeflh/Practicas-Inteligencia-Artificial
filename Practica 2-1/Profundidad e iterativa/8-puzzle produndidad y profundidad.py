@@ -127,20 +127,24 @@ def busqueda_profundidad_iterativa(estado):
 
 
 if __name__ == '__main__':
+    opcion = 4
+    
     while True:
         os.system('cls')
 
          # Generar un estado aleatorio
-        estado_inicial = estado_aleatorio()
+        if opcion != -1:
+            estado_inicial = estado_aleatorio()
+
         # Imprimir el estado inicial
         print('Estado inicial: \n')
         for fila in estado_inicial:
             print('\t', fila)
 
-        print("\nElije una opción para resolver el puzzle:")
-        print("1. Amplitud")
-        print("2. Profundidad")
-        print("3. Profundidad iterativa")
+        print("\n\tMenú")
+        print("1. Búsqueda en amplitud")
+        print("2. Búsqueda en profundidad")
+        print("3. Búsqueda en profundidad iterativa")
         print("4. Generar otro estado")
         print("0. Salir")
         try:
@@ -210,5 +214,6 @@ if __name__ == '__main__':
             break
 
         else:
+            opcion = -1
             print("\nOpción no válida, intente de nuevo.")
             os.system('pause')
