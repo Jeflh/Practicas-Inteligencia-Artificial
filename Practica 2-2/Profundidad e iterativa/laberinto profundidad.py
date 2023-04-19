@@ -147,7 +147,7 @@ if __name__ == '__main__':
 
         elif opcion == 3:
             # Llamamos a la función de búsqueda en profundidad iterativa e imprimimos el resultado
-            resultado = busqueda_profundidad_iterativa(origen, destino, 10)
+            resultado = busqueda_profundidad_iterativa(origen, destino, 50)
             mostrarResultado(resultado)
 
         elif opcion == 4:
